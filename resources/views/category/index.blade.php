@@ -1,4 +1,11 @@
 @extends('layouts.app')
+
+
+{{-- git remote add origin https://github.com/nomansoft/winter.git --}}
+{{-- git branch -M main --}}
+{{-- git push -u origin main --}}
+
+
 @php
     use App\Models\Category;
     use App\Models\User;
@@ -30,7 +37,7 @@
                         <tbody>
                             {{-- {{ $categories ['added_by'] }} --}}
                             {{-- {{ $categories->category_name }} --}}
-                            @foreach ($categories as $Category)
+                            @forelse ($categories as $Category)
                             <tr>
                                 <th scope="row">{{ $loop->index+1 }}</th>
                                 <td>{{ $Category->category_name }}</td>
@@ -38,16 +45,20 @@
                                 <td>{{ $Category->created_at->format('d,m,Y h:i:s A')}}</td>
                                 <td><a href="{{ url('category/delete') }}/{{ $Category->id }}" class="btn btn-danger">Delete</a></td>
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr class="text-center text-danger">
+                                <td colspan="5"><h5>No data to show</h5></td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
                    <div class="paginate1 text-center">
                         {{-- {{ $categories->links() }} --}}
                    </div>
                 </div>
-                <div class="card-footer bg-success text-center">
-                    <h5>Total Category: {{ $Category::count() }}</h5>
-                </div>
+                {{-- <div class="card-footer bg-success text-center"> --}}
+                    {{-- <h5>Total Category: {{ $Category::count() }}</h5> --}}
+                {{-- </div> --}}
             </div>
 
         </div>

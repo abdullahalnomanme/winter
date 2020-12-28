@@ -26,21 +26,24 @@ class SubCategoryController extends Controller
     function insert(Request $request){
         $request->validate([
             'category_id'=> 'required',
-            'subcategory_name'=> 'required | unique:subcategories,subcategory_name',
+            'subcategory_name'=> 'required',
         ],[
             'category_id.required'=>'Category Id is required',
             'subcategory_name.required'=>'Sub Category name is required',
-            'subcategory_name.unique'=>'Sub Category name is exist',
         ]);
         // print_r($request->all());
-        subcategory::insert([
-            'category_id' => $request->category_id,
-            'subcategory_name' => $request->subcategory_name,
-            'created_at' => Carbon::now(),
-        ]);
-        // echo "done";
-        // return view('subcategory.insert');
-        return back()->with('status', 'Sub category Added successfully');
+        if(subcategory::where('category_id', $request->category_id)->where('subcategory_name', $request->subcategory_name)->exists()){
+            return back()->with('error_status', 'Sub Category is already Exists');
+        }
+        else{
+            subcategory::insert([
+                'category_id' => $request->category_id,
+                'subcategory_name' => $request->subcategory_name,
+                'created_at' => Carbon::now(),
+            ]);
+            return back()->with('status', 'Sub category Added successfully');
+        }
+
     }
     function delete($subcategory_id){
         // echo $subcategory_id;

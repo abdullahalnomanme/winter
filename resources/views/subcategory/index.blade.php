@@ -60,7 +60,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    @if (session('error_status'))
+                        <div class="alert alert-danger">
+                            {{ session('error_status') }}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ url('subcategory/insert') }}">
                         @csrf
                         <div class="form-group">
