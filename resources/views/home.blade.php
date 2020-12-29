@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header bg-success text-center"><h3>{{ __('Users List') }}</h3></div>
+                        <div class="card-header bg-success text-center"><h3>{{ __('Users Lists') }}</h3></div>
                         <div class="card-body">
                         {{--
                             @if (session('status'))
