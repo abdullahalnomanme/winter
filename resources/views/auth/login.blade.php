@@ -1,7 +1,47 @@
-@extends('layouts.app')
+@extends('layouts.starlight')
 
 @section('content')
-<div class="container">
+
+
+
+<div class="d-flex align-items-center justify-content-center bg-sl-primary ht-100v">
+
+    <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
+      <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">Winter <span class="tx-info tx-normal">Login</span></div>
+      <div class="tx-center mg-b-60">Please login your Currect Info</div>
+      <form method="POST" action="{{ route('login') }}">
+        @csrf
+        <div class="form-group">
+            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Enter Your Email">
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div><!-- form-group -->
+        <div class="form-group">
+            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Enter Your Password">
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div><!-- form-group -->
+        <div class="form-group">
+            @if (Route::has('password.request'))
+                <a class="btn btn-link" href="{{ route('password.request') }}">
+                    {{ __('Forgot Your Password?') }}
+                </a>
+            @endif
+        </div><!-- form-group -->
+        <button type="submit" class="btn btn-info btn-block">Sign In</button>
+      </form>
+      <div class="mg-t-60 tx-center">Not yet a member? <a href="{{ url('/register') }}" class="tx-info">Sign Up</a></div>
+    </div><!-- login-wrapper -->
+  </div><!-- d-flex -->
+
+
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -30,7 +70,6 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -69,5 +108,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection

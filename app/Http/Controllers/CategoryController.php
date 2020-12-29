@@ -15,7 +15,8 @@ class CategoryController extends Controller
 
     function index(){
         // $categories = Category::latest()->simplePaginate(5);
-        $categories = Category::latest()->get();
+        $categories = Category::latest()->paginate(5);
+        // $categories = Category::latest()->get();
         return view('category.index', compact('categories'));
     }
     function insert(Request $request){

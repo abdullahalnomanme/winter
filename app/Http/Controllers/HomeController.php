@@ -36,7 +36,7 @@ class HomeController extends Controller
 
     // Laravel
 
-    $users = User::simplePaginate(3);
+    $users = User::paginate(5);
 
     // $name = User::select('name')->get();
     // $age = 2000;

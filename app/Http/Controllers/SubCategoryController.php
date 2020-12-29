@@ -35,7 +35,6 @@ class SubCategoryController extends Controller
         if(subcategory::where('category_id', $request->category_id)->where('subcategory_name', $request->subcategory_name)->exists()){
             return back()->with('error_status', 'Sub Category is already Exists');
         }
-        echo "Hello";
         else{
             subcategory::insert([
                 'category_id' => $request->category_id,

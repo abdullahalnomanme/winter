@@ -1,7 +1,85 @@
-@extends('layouts.app')
-
+@extends('layouts.starlight')
 @section('content')
-<div class="container">
+
+<div class="d-flex align-items-center justify-content-center bg-sl-primary ht-md-100v">
+
+    <div class="login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-40 bg-white">
+      <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">Register <span class="tx-info tx-normal">Panel
+    </span></div>
+      <div class="tx-center mg-b-60">Please Register by Currect Info</div>
+
+      <form method="POST" action="{{ route('register') }}">
+        @csrf
+        <div class="form-group">
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Enter Your Full Name">
+                @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+        </div><!-- form-group -->
+        <div class="form-group">
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Enter Your Email">
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+        </div><!-- form-group -->
+        <div class="form-group">
+            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Enter New Password">
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div><!-- form-group -->
+        <div class="form-group">
+            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Enter Confirm Password">
+        </div><!-- form-group -->
+        <div class="form-group">
+            <label class="d-block tx-11 tx-uppercase tx-medium tx-spacing-1">Birthday</label>
+            <div class="row row-xs">
+            <div class="col-sm-4">
+                <select class="form-control select2" data-placeholder="Month">
+                <option label="Month"></option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                </select>
+            </div><!-- col-4 -->
+            <div class="col-sm-4 mg-t-20 mg-sm-t-0">
+                <select class="form-control select2" data-placeholder="Day">
+                <option label="Day"></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                </select>
+            </div><!-- col-4 -->
+            <div class="col-sm-4 mg-t-20 mg-sm-t-0">
+                <select class="form-control select2" data-placeholder="Year">
+                <option label="Year"></option>
+                <option value="1">2010</option>
+                <option value="2">2011</option>
+                <option value="3">2012</option>
+                <option value="4">2013</option>
+                <option value="5">2014</option>
+                </select>
+            </div><!-- col-4 -->
+            </div><!-- row -->
+        </div><!-- form-group -->
+        <div class="form-group tx-12">By clicking the Sign Up button below, you agreed to our privacy policy and terms of use of our website.</div>
+        <button type="submit" class="btn btn-info btn-block">Sign Up</button>
+    </form>
+      <div class="mg-t-40 tx-center">Already have an account? <a href="{{ url('/login') }}" class="tx-info">Sign In</a></div>
+    </div><!-- login-wrapper -->
+  </div><!-- d-flex -->
+
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -10,7 +88,6 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -73,5 +150,17 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
+@endsection
+
+@section('footer_scripts')
+<script>
+    $(function(){
+      'use strict';
+
+      $('.select2').select2({
+        minimumResultsForSearch: Infinity
+      });
+    });
+</script>
 @endsection
