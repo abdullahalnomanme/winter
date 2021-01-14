@@ -39,11 +39,11 @@
                                     <tr>
                                         <th scope="row"> {{$subcategories->firstItem()+$key}}</th>
                                         <td>{{ $subcategory->subcategory_name }}</td>
-                                        {{-- <td>{{ Category::find($subcategory->category_id)->category_name }}</td> --}}
+                                        <td>{{ Category::find($subcategory->category_id)->category_name }}</td>
                                         <td>{{ $subcategory->created_at->format('d,m,Y h:i:s A')}}</td>
-                                        <td>
-                                            <a href="{{ url('subcategory/delete') }}/{{ $subcategory->id }}" class="btn btn-danger">Delete</a>
-                                            {{-- <a href="#" class="btn btn-success">edit</a> --}}
+                                        <td class="d-flex">
+                                            <a href="{{ url('subcategory/delete') }}/{{ $subcategory->id }}" class="btn btn-warning">Delete</a>
+                                            <a href="#" class="btn btn-primary ">Edit</a>
                                         </td>
                                     </tr>
                                 @empty
@@ -102,6 +102,52 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-success text-center"><h4>{{ __('Trashed Sub category') }}</h4></div>
+                    <div class="card-body">
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Serial No</th>
+                                    <th scope="col">Sub Category Name</th>
+                                    <th scope="col">Category Name</th>
+                                    <th scope="col">Created At</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($deleted_subcategories as $key => $deleted_subcategory)
+                                    <tr>
+                                        <th scope="row"> {{$loop->index + $key}}</th>
+                                        <td>{{ $deleted_subcategory->subcategory_name }}</td>
+                                        <td>{{ Category::find($deleted_subcategory->category_id)->category_name }}</td>
+                                        <td>{{ $deleted_subcategory->created_at->format('d,m,Y h:i:s A')}}</td>
+                                        <td class="d-flex">
+                                            <a href="{{ url('subcategory/restore') }}/{{ $deleted_subcategory->id }}" class="btn btn-success">Restore</a>
+                                            <a href="{{ url('subcategory/restore') }}/{{ $deleted_subcategory->id }}" class="btn btn-danger">P.Delete</a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr class="text-center text-danger">
+                                        <td colspan="5"><h5>No data to show</h5></td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        <div class="text-center mx-auto">
+                            <p> {{ $deleted_subcategories->links() }}</p>
+                        </div>
+                    </div>
+                    {{-- <div class="card-footer bg-success text-center">
+                        <h5>Total Sub Category: {{ $subcategory::count() }}</h5>
+                    </div> --}}
+                </div>
+            </div>
+
         </div>
     </div>
 

@@ -30,4 +30,5 @@ Route::get('/category/delete/{category_id}', [CategoryController::class, 'delete
 Route::get('/subcategory', [SubCategoryController::class, 'index']);
 Route::post('/subcategory/insert', [SubCategoryController::class, 'insert']);
 Route::get('/subcategory/delete/{subcategory_id}', [SubCategoryController::class, 'delete']);
+Route::get('/subcategory/restore/{delete_subcategory_id}', [SubCategoryController::class, 'restore']);
 

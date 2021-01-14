@@ -15,12 +15,15 @@ class SubCategoryController extends Controller
     }
 
     function index(){
+        // echo subcategory::onlyTrashed()->get();
+        // die();
         // $categories = Category::latest()->get();
           return view('subcategory.index',[
             // 'categories' => $categories,
            'categories' => Category::latest()->get(),
         //    'subcategories' => subcategory::latest()->get(),
            'subcategories' => subcategory::paginate(5),
+           'deleted_subcategories' => subcategory::onlyTrashed()->paginate(5),
         ]);
     }
     function insert(Request $request){
@@ -46,8 +49,12 @@ class SubCategoryController extends Controller
 
     }
     function delete($subcategory_id){
-        // echo $subcategory_id;
         subcategory::find($subcategory_id)->delete();
+        return back();
+    }
+    function restore($delete_subcategory_id){
+        // echo $delete_subcategory_id;
+        subcategory::withTrashed()->find($delete_subcategory_id)->restore();
         return back();
     }
 }
